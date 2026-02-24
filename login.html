@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome Back</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    background: #000;
+}
+
+/* Main layout */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* LEFT SIDE */
+.left {
+    width: 42%;
+    background: #fff;
+    padding: 48px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Brand */
+.brand {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 40px;
+}
+
+/* Headings */
+h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.subtitle {
+    margin: 10px 0 30px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Inputs */
+label {
+    font-size: 12px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Row */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 24px;
+}
+
+.row a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Buttons */
+.primary-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    opacity: 0.85;
+}
+
+.google-btn {
+    margin-top: 14px;
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 14px;
+    width: 100%;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    margin-top: 30px;
+    font-size: 12px;
+    color: #555;
+}
+
+/* RIGHT SIDE */
+.right {
+    width: 58%;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Illustration placeholder */
+.illustration {
+    width: 360px;
+    height: 360px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+}
+
+.illustration span {
+    font-size: 18px;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .right {
+        display: none;
+    }
+    .left {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+
+    <!-- LEFT -->
+    <div class="left">
+        <div class="brand">Kunwari Website</div>
+
+        <h1>Welcome back</h1>
+        <div class="subtitle">Please enter your details</div>
+
+        <form onsubmit="return loginUser()">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" required>
+
+            <div class="row">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#">Forgot password</a>
+            </div>
+
+            <button type="submit" class="primary-btn">Sign in</button>
+            <button type="button" class="google-btn">Sign in with Google</button>
+        </form>
+
+        <div class="footer">
+            Don’t have an account? <strong>Sign up</strong>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <div class="illustration">
+            <span>PICTURE CUMAL BADING</span>
+        </div>
+    </div>
+
+
+<script>
+function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (email === "delatina1238@gmail.com" && password === "HATDOG1238") {
+        alert("✅ Login successful!");
+        window.location.href = "homepage.html"; // redirect here
+    } else {
+        alert("❌ Invalid email or password");
+    }
+
+    return false; // stop page reload
+}
+       
+
+</script>
+
+
+</body>
+</html>
