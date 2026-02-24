@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Minimalist — Functional Search</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fff;
+      --ink: #111;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    .brand {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    a.icon {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    a.icon:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    a.icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--ink);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    #search-bar {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 40px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    #search-bar input {
+      width: 200px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    #search-bar button {
+      padding: 6px 12px;
+      font-size: 14px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        padding: 0 20px;
+      }
+      #search-bar {
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">About</div>
+    <nav>
+      <!-- ✅ Home button now redirects to homepage.html -->
+      <a href="homepage.html" class="icon" title="Home">
+        <svg viewBox="0 0 24 24"><path d="M3 12 L12 4 L21 12"/></svg>
+      </a>
+
+      <a id="search-icon" class="icon" title="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="5"/><path d="M21 21 L16.65 16.65"/></svg>
+      </a>
+
+      <a href="homepage2.html" class="icon" title="Gallery">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="6"/><rect x="15" y="3" width="6" height="6"/><rect x="3" y="15" width="6" height="6"/><rect x="15" y="15" width="6" height="6"/></svg>
+      </a>
+
+      <a href="about.html" class="icon" title="About">
+        <svg viewBox="0 0 24 24"><path d="M6 7 L6 19 L18 19 L18 7 Z"/><path d="M9 7 A3 3 0 0 1 15 7"/></svg>
+      </a>
+    </nav>
+
+    <!-- Search bar container -->
+    <div id="search-bar">
+      <input type="text" id="search-input" placeholder="Search pages...">
+      <button id="search-btn">Go</button>
+    </div>
+  </header>
+
+  <main>
+    <p style="font-size:18px; color:black;" > <b>This website was created and designed by Christian Karl L. Delatina using HTML, CSS, and JavaScript.<br>
+	It was developed with attention to clean, responsive layout and user-friendly interactions — and refined with the assistance of ChatGPT (GPT-5 Thinking mini). <br>
+	Thank you for visiting; if you have feedback or suggestions, please reach out to the developer.</p></b>
+  </main>
+
+  <script>
+    const searchIcon = document.getElementById('search-icon');
+    const searchBar = document.getElementById('search-bar');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+
+    const pages = {
+      "collection": "collection.html",
+      "education": "education.html",
+      "family background": "familybackground.html",
+      "personal": "personal.html"
+    };
+
+    // Toggle search bar visibility
+    searchIcon.addEventListener('click', () => {
+      searchBar.style.display = searchBar.style.display === 'block' ? 'none' : 'block';
+      if (searchBar.style.display === 'block') searchInput.focus();
+    });
+
+    // Search function
+    function searchPage() {
+      const query = searchInput.value.toLowerCase().trim();
+      for (const key in pages) {
+        if (key.includes(query)) {
+          window.location.href = pages[key];
+          return;
+        }
+      }
+      alert("Page not found. Try: Collection, Education, Family Background, or Personal.");
+    }
+
+    searchBtn.addEventListener('click', searchPage);
+    searchInput.addEventListener('keypress', e => {
+      if (e.key === 'Enter') searchPage();
+    });
+  </script>
+</body>
+</html>
