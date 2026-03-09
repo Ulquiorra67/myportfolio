@@ -1,41 +1,270 @@
-<!DOCTYPE html>
-<html> 
-    <head><title> Family Background</title></head>
-	<h1> Delatina	Family </h1>
-	
-	<body style=background-color:SlateBlue;'> 
-	
-												
-	
-<p	style="color:black;font-family:arial;"><b> My family, are a tight-knit bunch, and we call Quezon City, right here in Metro Manila, our home. At the heart of it all are my parents, Michelle L. Delatina and Rodolfo B. Delatina. They've poured their lives into creating a loving and supportive environment for my younger brother and me, and their commitment to our well-being is something I truly admire. Everything we have, everything we are, really stems from the strong foundation they've built for us.
- 
- <br>
- <br>
-As the older brother, I'm currently navigating the busy halls of Quirino High School, where I'm a Grade 11 student. It's a challenging but exciting time, and I know these years are shaping who I'll become. My younger brother, Kurt Reign L. Delatina, adds so much energy to our household. We've got that typical brotherly dynamic – a bit of playful competition, but always there for each other when it counts. Our everyday interactions definitely keep things lively around here!
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Family Background</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 
-<br>
-<br>
+  <style>
+    :root {
+      --bg: #fff;
+      --ink: #111;
+    }
 
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
 
-		Our family's story is one of perseverance and unwavering love. We each bring something unique to the table, creating this incredible support system where we celebrate our wins and face any challenges together. From simple family dinners to our occasional outings, every moment just reinforces the strong bond we share. We're a family that believes in hard work, the importance of education, and staying connected, and those values guide us every single day.
+    header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: relative;
+    }
 
+    .brand { display: flex; align-items: center; gap: 12px; }
 
-<br>
-<br>
-<br>
-<a href="family.html"> <h1> See other images </h1> </a>
-<a href="homepage2.html"> <h1> Gallery </h1> </a>
-<a href="index.html"> <h1> Homepage </h1> </a>
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
+    .login-btn {
+      padding: 6px 14px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 6px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
 
+    .login-btn:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
 
+    a.icon {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
+    a.icon:hover { opacity: 1; transform: scale(1.1); }
 
+    a.icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--ink);
+      stroke-width: 2;
+      fill: none;
+    }
 
-						
-									
+    #search-bar {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 40px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
 
+    #search-bar input {
+      width: 200px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
 
+    #search-bar button {
+      padding: 6px 12px;
+      font-size: 14px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
 
+    main {
+      flex: 1;
+      max-width: 820px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+      box-sizing: border-box;
+    }
 
+    main h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
 
+    main p {
+      font-size: 16px;
+      line-height: 1.85;
+      color: #222;
+    }
+
+    .page-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .page-links a {
+      padding: 10px 22px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 6px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .page-links a:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 0 20px; }
+      #search-bar { right: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand"></div>
+
+    <nav>
+      <a href="login.html" class="login-btn">Login</a>
+
+      <a href="index.html" class="icon" title="Home">
+        <svg viewBox="0 0 24 24"><path d="M3 12 L12 4 L21 12"/></svg>
+      </a>
+
+      <a id="search-icon" class="icon" title="Search">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="5"/>
+          <path d="M21 21 L16.65 16.65"/>
+        </svg>
+      </a>
+
+      <a href="homepage2.html" class="icon" title="Gallery">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="6" height="6"/>
+          <rect x="15" y="3" width="6" height="6"/>
+          <rect x="3" y="15" width="6" height="6"/>
+          <rect x="15" y="15" width="6" height="6"/>
+        </svg>
+      </a>
+
+      <a href="about.html" class="icon" title="About">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 7 L6 19 L18 19 L18 7 Z"/>
+          <path d="M9 7 A3 3 0 0 1 15 7"/>
+        </svg>
+      </a>
+    </nav>
+
+    <div id="search-bar">
+      <input type="text" id="search-input" placeholder="Search pages...">
+      <button id="search-btn">Go</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>Delatina Family</h1>
+
+    <p>
+      My family are a tight-knit bunch, and we call <b>Quezon City</b>, right here in Metro Manila, our home. At the heart of it all are my parents, <b>Michelle L. Delatina</b> and <b>Rodolfo B. Delatina</b>. They've poured their lives into creating a loving and supportive environment for my younger brother and me, and their commitment to our well-being is something I truly admire. Everything we have, everything we are, really stems from the strong foundation they've built for us.
+    </p>
+
+    <p>
+      As the older brother, I'm currently navigating the busy halls of <b>Quirino High School</b>, where I'm a Grade 11 student. It's a challenging but exciting time, and I know these years are shaping who I'll become. My younger brother, <b>Kurt Reign L. Delatina</b>, adds so much energy to our household. We've got that typical brotherly dynamic — a bit of playful competition, but always there for each other when it counts. Our everyday interactions definitely keep things lively around here!
+    </p>
+
+    <p>
+      Our family's story is one of perseverance and unwavering love. We each bring something unique to the table, creating this incredible support system where we celebrate our wins and face any challenges together. From simple family dinners to our occasional outings, every moment just reinforces the strong bond we share. We're a family that believes in hard work, the importance of education, and staying connected, and those values guide us every single day.
+    </p>
+
+    <div class="page-links">
+      <a href="family.html">See Other Images</a>
+      <a href="homepage2.html">Gallery</a>
+      <a href="index.html">Homepage</a>
+    </div>
+  </main>
+
+  <script>
+    const searchIcon  = document.getElementById('search-icon');
+    const searchBar   = document.getElementById('search-bar');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn   = document.getElementById('search-btn');
+
+    const pages = {
+      "collection":        "collection.html",
+      "education":         "education.html",
+      "family background": "familybackground.html",
+      "personal":          "personal.html"
+    };
+
+    searchIcon.addEventListener('click', () => {
+      searchBar.style.display =
+        searchBar.style.display === 'block' ? 'none' : 'block';
+      if (searchBar.style.display === 'block') searchInput.focus();
+    });
+
+    function searchPage() {
+      const query = searchInput.value.toLowerCase().trim();
+      for (const key in pages) {
+        if (key.includes(query)) {
+          if (key === "personal" && localStorage.getItem("loggedIn") !== "true") {
+            alert("You must log in first to access the Personal page.");
+            window.location.href = "login.html";
+            return;
+          }
+          window.location.href = pages[key];
+          return;
+        }
+      }
+      alert("Page not found. Try: Collection, Education, Family Background, or Personal.");
+    }
+
+    searchBtn.addEventListener('click', searchPage);
+    searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') searchPage(); });
+  </script>
+
+</body>
+</html>
