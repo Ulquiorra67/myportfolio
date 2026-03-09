@@ -1,32 +1,350 @@
-The paths look correct (education/E1.jpeg etc.) — but the images won't show unless the actual image files are uploaded to GitHub inside an education/ folder. Also I noticed the "Homepage" link points to homepage.html which returned a 404 earlier — it should be index.html.
-Here's the fixed version:
-html<!DOCTYPE html>
-<html>
-<head><title></title></head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Education Images</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fff;
+      --ink: #111;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: 'Raleway', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: relative;
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .login-btn {
+      padding: 6px 14px;
+      font-size: 14px;
+      text-decoration: none;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 6px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    a.icon {
+      width: 24px;
+      height: 24px;
+      display: inline-grid;
+      place-items: center;
+      opacity: 0.9;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    a.icon:hover { opacity: 1; transform: scale(1.1); }
+
+    a.icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--ink);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    #search-bar {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 40px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    #search-bar input {
+      width: 200px;
+      padding: 6px 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    #search-bar button {
+      padding: 6px 12px;
+      font-size: 14px;
+      background: var(--ink);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+      box-sizing: border-box;
+    }
+
+    main h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .grid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 6px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.active { display: flex; }
+
+    #lightbox img {
+      max-width: 88vw;
+      max-height: 88vh;
+      border-radius: 8px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      font-size: 32px;
+      color: #fff;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .page-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 48px;
+    }
+
+    .page-links a {
+      padding: 10px 22px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 6px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .page-links a:hover {
+      background: #333;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 900px) {
+      header { padding: 0 20px; }
+      #search-bar { right: 20px; }
+      .grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
 <body>
 
-  <img src="education/E1.jpeg" width="20%" height="20%">
-  <img src="education/E2.jpeg" width="20%" height="20%">
-  <img src="education/E3.jpeg" width="20%" height="20%">
-  <img src="education/E4.jpeg" width="20%" height="20%">
-  <img src="education/E5.jpeg" width="20%" height="20%">
-  <img src="education/E6.jpeg" width="20%" height="20%">
-  <img src="education/E7.jpeg" width="20%" height="20%">
-  <img src="education/E8.jpeg" width="20%" height="20%">
-  <img src="education/E9.jpeg" width="20%" height="20%">
-  <img src="education/E10.jpeg" width="20%" height="20%">
-  <img src="education/E11.jpeg" width="20%" height="20%">
-  <img src="education/E12.jpeg" width="20%" height="20%">
-  <img src="education/E13.jpeg" width="20%" height="20%">
-  <img src="education/E14.jpeg" width="20%" height="20%">
-  <img src="education/E15.jpeg" width="20%" height="20%">
-  <img src="education/E16.jpeg" width="20%" height="20%">
+  <header>
+    <div class="brand"></div>
 
-  <br><br><br>
+    <nav>
+      <a href="login.html" class="login-btn">Login</a>
 
-  <a href="education.html"><h1>Back</h1></a>
-  <a href="homepage2.html"><h1>Gallery</h1></a>
-  <a href="index.html"><h1>Homepage</h1></a>  
+      <a href="index.html" class="icon" title="Home">
+        <svg viewBox="0 0 24 24"><path d="M3 12 L12 4 L21 12"/></svg>
+      </a>
+
+      <a id="search-icon" class="icon" title="Search">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="5"/>
+          <path d="M21 21 L16.65 16.65"/>
+        </svg>
+      </a>
+
+      <a href="homepage2.html" class="icon" title="Gallery">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="3" width="6" height="6"/>
+          <rect x="15" y="3" width="6" height="6"/>
+          <rect x="3" y="15" width="6" height="6"/>
+          <rect x="15" y="15" width="6" height="6"/>
+        </svg>
+      </a>
+
+      <a href="about.html" class="icon" title="About">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 7 L6 19 L18 19 L18 7 Z"/>
+          <path d="M9 7 A3 3 0 0 1 15 7"/>
+        </svg>
+      </a>
+    </nav>
+
+    <div id="search-bar">
+      <input type="text" id="search-input" placeholder="Search pages...">
+      <button id="search-btn">Go</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>Education Images</h1>
+
+    <div class="grid">
+      <img src="education/E1.jpeg"  alt="Education 1">
+      <img src="education/E2.jpeg"  alt="Education 2">
+      <img src="education/E3.jpeg"  alt="Education 3">
+      <img src="education/E4.jpeg"  alt="Education 4">
+      <img src="education/E5.jpeg"  alt="Education 5">
+      <img src="education/E6.jpeg"  alt="Education 6">
+      <img src="education/E7.jpeg"  alt="Education 7">
+      <img src="education/E8.jpeg"  alt="Education 8">
+      <img src="education/E9.jpeg"  alt="Education 9">
+      <img src="education/E10.jpeg" alt="Education 10">
+      <img src="education/E11.jpeg" alt="Education 11">
+      <img src="education/E12.jpeg" alt="Education 12">
+      <img src="education/E13.jpeg" alt="Education 13">
+      <img src="education/E14.jpeg" alt="Education 14">
+      <img src="education/E15.jpeg" alt="Education 15">
+      <img src="education/E16.jpeg" alt="Education 16">
+    </div>
+
+    <div class="page-links">
+      <a href="education.html">Back</a>
+      <a href="homepage2.html">Gallery</a>
+      <a href="index.html">Homepage</a>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    const searchIcon  = document.getElementById('search-icon');
+    const searchBar   = document.getElementById('search-bar');
+    const searchInput = document.getElementById('search-input');
+    const searchBtn   = document.getElementById('search-btn');
+
+    const pages = {
+      "collection":        "collection.html",
+      "education":         "education.html",
+      "family background": "familybackground.html",
+      "personal":          "personal.html"
+    };
+
+    searchIcon.addEventListener('click', () => {
+      searchBar.style.display =
+        searchBar.style.display === 'block' ? 'none' : 'block';
+      if (searchBar.style.display === 'block') searchInput.focus();
+    });
+
+    function searchPage() {
+      const query = searchInput.value.toLowerCase().trim();
+      for (const key in pages) {
+        if (key.includes(query)) {
+          if (key === "personal" && localStorage.getItem("loggedIn") !== "true") {
+            alert("You must log in first to access the Personal page.");
+            window.location.href = "login.html";
+            return;
+          }
+          window.location.href = pages[key];
+          return;
+        }
+      }
+      alert("Page not found. Try: Collection, Education, Family Background, or Personal.");
+    }
+
+    searchBtn.addEventListener('click', searchPage);
+    searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') searchPage(); });
+
+    /* Lightbox */
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxImg   = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.grid img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('active');
+    });
+  </script>
 
 </body>
 </html>
