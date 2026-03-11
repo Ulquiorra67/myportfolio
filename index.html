@@ -1,4 +1,5 @@
-<!doctype html>
+
+ <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -24,15 +25,6 @@
       flex-direction: column;
     }
 
-    /* ── Hueco Mundo canvas background ── */
-    #hueco-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      pointer-events: none;
-    }
-
     header {
       height: 60px;
       display: flex;
@@ -40,7 +32,6 @@
       justify-content: space-between;
       padding: 0 40px;
       position: relative;
-      z-index: 10;
     }
 
     .brand {
@@ -103,7 +94,6 @@
       padding: 10px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 20;
     }
 
     #search-bar input {
@@ -134,8 +124,6 @@
       justify-content: center;
       text-align: center;
       padding: 20px;
-      position: relative;
-      z-index: 10;
     }
 
     @media (max-width: 900px) {
@@ -151,22 +139,27 @@
 
 <body>
 
-  <!-- Hueco Mundo animated background -->
-  <canvas id="hueco-canvas"></canvas>
-
   <header>
+
     <div class="brand"></div>
+
     <nav>
+
       <a href="login.html" class="login-btn">Login</a>
+
       <a href="#home" class="icon" title="Home">
-        <svg viewBox="0 0 24 24"><path d="M3 12 L12 4 L21 12"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M3 12 L12 4 L21 12"/>
+        </svg>
       </a>
+
       <a id="search-icon" class="icon" title="Search">
         <svg viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="5"/>
           <path d="M21 21 L16.65 16.65"/>
         </svg>
       </a>
+
       <a href="homepage2.html" class="icon" title="Gallery">
         <svg viewBox="0 0 24 24">
           <rect x="3" y="3" width="6" height="6"/>
@@ -175,22 +168,27 @@
           <rect x="15" y="15" width="6" height="6"/>
         </svg>
       </a>
+
       <a href="about.html" class="icon" title="About">
         <svg viewBox="0 0 24 24">
           <path d="M6 7 L6 19 L18 19 L18 7 Z"/>
           <path d="M9 7 A3 3 0 0 1 15 7"/>
         </svg>
       </a>
+
     </nav>
+
     <div id="search-bar">
       <input type="text" id="search-input" placeholder="Search pages...">
       <button id="search-btn">Go</button>
     </div>
+
   </header>
 
   <main>
     <img src="ull.jpg" alt="Ulquiorra"
       style="max-width:300px; width:100%; height:auto; margin-bottom:20px; border-radius:8px;">
+
     <p style="font-size:18px; color:black;">
       <b>ULQUIORRA</b><br>
       When this guy smiles… it's the end of the world.<br>
@@ -198,7 +196,6 @@
     </p>
   </main>
 
-  <!-- Original search script — unchanged -->
   <script>
     const searchIcon = document.getElementById('search-icon');
     const searchBar = document.getElementById('search-bar');
@@ -220,20 +217,26 @@
 
     function searchPage() {
       const query = searchInput.value.toLowerCase().trim();
+
       for (const key in pages) {
         if (key.includes(query)) {
+
+          // 🔐 Protect Personal Page
           if (key === "personal") {
             const isLoggedIn = localStorage.getItem("loggedIn");
+
             if (isLoggedIn !== "true") {
               alert("You must log in first to access the Personal page.");
               window.location.href = "login.html";
               return;
             }
           }
+
           window.location.href = pages[key];
           return;
         }
       }
+
       alert("Page not found. Try: Collection, Education, Family Background, or Personal.");
     }
 
@@ -241,272 +244,6 @@
     searchInput.addEventListener('keypress', e => {
       if (e.key === 'Enter') searchPage();
     });
-  </script>
-
-  <!-- Hueco Mundo background animation -->
-  <script>
-    (function () {
-      const canvas = document.getElementById('hueco-canvas');
-      const ctx = canvas.getContext('2d');
-      let W, H, t = 0;
-
-      function resize() {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resize);
-      resize();
-
-      // Stars
-      const stars = Array.from({ length: 220 }, () => ({
-        x: Math.random(),
-        y: Math.random() * 0.72,
-        r: Math.random() * 1.4 + 0.3,
-        phase: Math.random() * Math.PI * 2,
-        speed: Math.random() * 0.025 + 0.008
-      }));
-
-      // Bone trees (Hueco Mundo's signature dead white trees)
-      function buildTree(bx, by, angle, depth, len) {
-        if (depth === 0) return [];
-        const segs = [];
-        const ex = bx + Math.cos(angle) * len;
-        const ey = by + Math.sin(angle) * len;
-        segs.push({ x1: bx, y1: by, x2: ex, y2: ey, depth });
-        if (depth > 1) {
-          const spread = 0.45 + depth * 0.05;
-          segs.push(...buildTree(ex, ey, angle - spread, depth - 1, len * 0.68));
-          segs.push(...buildTree(ex, ey, angle + spread, depth - 1, len * 0.68));
-          if (depth > 2) segs.push(...buildTree(ex, ey, angle, depth - 1, len * 0.72));
-        }
-        return segs;
-      }
-
-      const treeConfigs = [
-        { rx: 0.08, ry: 1.0, len: 0.09, depth: 6 },
-        { rx: 0.18, ry: 1.0, len: 0.07, depth: 5 },
-        { rx: 0.78, ry: 1.0, len: 0.085, depth: 6 },
-        { rx: 0.90, ry: 1.0, len: 0.065, depth: 5 },
-        { rx: 0.50, ry: 1.0, len: 0.06,  depth: 5 },
-        { rx: 0.35, ry: 1.0, len: 0.05,  depth: 4 },
-        { rx: 0.65, ry: 1.0, len: 0.055, depth: 4 },
-      ];
-
-      // Floating reiatsu particles (spiritual pressure wisps)
-      const wisps = Array.from({ length: 30 }, (_, i) => ({
-        x: Math.random(),
-        y: 0.55 + Math.random() * 0.45,
-        vx: (Math.random() - 0.5) * 0.0004,
-        vy: -Math.random() * 0.0003 - 0.0001,
-        life: Math.random(),
-        size: Math.random() * 3 + 1.5,
-        hue: Math.random() > 0.5 ? 170 : 280
-      }));
-
-      function drawSky() {
-        const grad = ctx.createLinearGradient(0, 0, 0, H);
-        grad.addColorStop(0,   '#000000');
-        grad.addColorStop(0.3, '#050508');
-        grad.addColorStop(0.65,'#0a0a10');
-        grad.addColorStop(0.75,'#111118');
-        grad.addColorStop(1,   '#1a1a22');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, W, H);
-      }
-
-      function drawStars() {
-        stars.forEach(s => {
-          s.phase += s.speed;
-          const alpha = 0.35 + Math.sin(s.phase) * 0.35;
-          const sx = s.x * W, sy = s.y * H;
-          const g = ctx.createRadialGradient(sx, sy, 0, sx, sy, s.r * 4);
-          g.addColorStop(0, `rgba(240,245,255,${alpha})`);
-          g.addColorStop(1, 'rgba(240,245,255,0)');
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(sx, sy, s.r * 4, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = `rgba(255,255,255,${alpha + 0.2})`;
-          ctx.beginPath();
-          ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
-          ctx.fill();
-        });
-      }
-
-      function drawMoon() {
-        const mx = W * 0.5 + Math.sin(t * 0.0015) * W * 0.015;
-        const my = H * 0.18 + Math.cos(t * 0.001) * H * 0.01;
-        const mr = Math.min(W, H) * 0.09;
-
-        // Outer atmospheric glow
-        const atm = ctx.createRadialGradient(mx, my, mr * 0.8, mx, my, mr * 3.5);
-        atm.addColorStop(0, 'rgba(230,240,255,0.12)');
-        atm.addColorStop(0.4,'rgba(200,220,255,0.06)');
-        atm.addColorStop(1, 'rgba(150,180,255,0)');
-        ctx.fillStyle = atm;
-        ctx.beginPath();
-        ctx.arc(mx, my, mr * 3.5, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Moon body — Hueco Mundo moon is cold white
-        const moonG = ctx.createRadialGradient(mx - mr*0.25, my - mr*0.25, mr*0.05, mx, my, mr);
-        moonG.addColorStop(0, '#f0f4ff');
-        moonG.addColorStop(0.5,'#d8e4f8');
-        moonG.addColorStop(0.85,'#b0c8e8');
-        moonG.addColorStop(1, '#8090b8');
-        ctx.fillStyle = moonG;
-        ctx.beginPath();
-        ctx.arc(mx, my, mr, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Crater details
-        const craters = [
-          [-0.3, -0.25, 0.14], [0.28, 0.2, 0.1],
-          [-0.1, 0.3, 0.08],   [0.15, -0.35, 0.06],
-          [-0.4, 0.1, 0.07],
-        ];
-        craters.forEach(([cx, cy, cr]) => {
-          const ccx = mx + cx * mr, ccy = my + cy * mr, ccr = cr * mr;
-          ctx.fillStyle = 'rgba(80,100,160,0.18)';
-          ctx.beginPath();
-          ctx.arc(ccx, ccy, ccr, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.strokeStyle = 'rgba(60,80,140,0.12)';
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        });
-
-        // Rim light
-        ctx.strokeStyle = 'rgba(200,220,255,0.3)';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.arc(mx, my, mr, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      function drawDesert() {
-        // White sand dunes of Hueco Mundo
-        const groundY = H * 0.72;
-
-        // Dune layers — back to front
-        const dunes = [
-          { color: '#1c1c24', amp: 0.025, freq: 0.003, phase: 0.4,  yOff: 0 },
-          { color: '#222230', amp: 0.02,  freq: 0.004, phase: 1.2,  yOff: 0.018 },
-          { color: '#2e2e3c', amp: 0.018, freq: 0.005, phase: 2.1,  yOff: 0.038 },
-          { color: '#e8e8ee', amp: 0.015, freq: 0.006, phase: 0.8,  yOff: 0.055 },
-          { color: '#f0f0f5', amp: 0.012, freq: 0.007, phase: 1.7,  yOff: 0.07  },
-        ];
-
-        dunes.forEach(d => {
-          const baseY = groundY + d.yOff * H;
-          ctx.beginPath();
-          ctx.moveTo(0, H);
-          for (let x = 0; x <= W; x += 3) {
-            const y = baseY + Math.sin(x * d.freq + d.phase + t * 0.0005) * d.amp * H
-                             + Math.sin(x * d.freq * 1.7 - d.phase * 0.5) * d.amp * H * 0.5;
-            ctx.lineTo(x, y);
-          }
-          ctx.lineTo(W, H);
-          ctx.closePath();
-          ctx.fillStyle = d.color;
-          ctx.fill();
-        });
-
-        // Surface shimmer on white sand
-        ctx.save();
-        ctx.globalAlpha = 0.06 + Math.sin(t * 0.008) * 0.03;
-        const shimmer = ctx.createLinearGradient(0, groundY + H * 0.06, 0, H);
-        shimmer.addColorStop(0, 'rgba(255,255,255,0.8)');
-        shimmer.addColorStop(1, 'rgba(200,200,220,0)');
-        ctx.fillStyle = shimmer;
-        ctx.fillRect(0, groundY + H * 0.06, W, H);
-        ctx.restore();
-      }
-
-      function drawTrees() {
-        treeConfigs.forEach(cfg => {
-          const bx = cfg.rx * W;
-          const by = cfg.ry * H;
-          const len = cfg.len * H;
-          const sway = Math.sin(t * 0.008 + cfg.rx * 10) * 0.025;
-          const segs = buildTree(bx, by, -Math.PI / 2 + sway, cfg.depth, len);
-
-          segs.forEach(seg => {
-            const alpha = 0.55 + (seg.depth / cfg.depth) * 0.4;
-            const lw = Math.max(0.5, seg.depth * 0.6);
-            ctx.strokeStyle = `rgba(230,232,240,${alpha})`;
-            ctx.lineWidth = lw;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.moveTo(seg.x1, seg.y1);
-            ctx.lineTo(seg.x2, seg.y2);
-            ctx.stroke();
-          });
-        });
-      }
-
-      function drawWisps() {
-        wisps.forEach(w => {
-          w.x += w.vx + Math.sin(t * 0.01 + w.y * 10) * 0.0003;
-          w.y += w.vy;
-          w.life -= 0.003;
-          if (w.life <= 0 || w.y < 0.4) {
-            w.x = Math.random();
-            w.y = 0.75 + Math.random() * 0.25;
-            w.life = 0.6 + Math.random() * 0.4;
-            w.vy = -Math.random() * 0.0003 - 0.0001;
-          }
-          const wx = w.x * W, wy = w.y * H;
-          const alpha = w.life * 0.4;
-          const g = ctx.createRadialGradient(wx, wy, 0, wx, wy, w.size * 4);
-          g.addColorStop(0, `hsla(${w.hue},80%,75%,${alpha})`);
-          g.addColorStop(1, `hsla(${w.hue},80%,75%,0)`);
-          ctx.fillStyle = g;
-          ctx.beginPath();
-          ctx.arc(wx, wy, w.size * 4, 0, Math.PI * 2);
-          ctx.fill();
-        });
-      }
-
-      function drawCeroDust() {
-        // Occasional faint Cero-like energy streaks
-        const cycle = (t * 0.3) % 600;
-        if (cycle < 80) {
-          const p = cycle / 80;
-          const sx = W * 0.15 + p * W * 0.25;
-          const sy = H * 0.35 + p * H * 0.1;
-          const tail = 90 * Math.sin(p * Math.PI);
-          const alpha = 0.6 * Math.sin(p * Math.PI);
-          const g = ctx.createLinearGradient(sx - tail, sy - tail * 0.4, sx, sy);
-          g.addColorStop(0, `rgba(80,255,180,0)`);
-          g.addColorStop(1, `rgba(80,255,180,${alpha})`);
-          ctx.strokeStyle = g;
-          ctx.lineWidth = 2.5;
-          ctx.beginPath();
-          ctx.moveTo(sx - tail, sy - tail * 0.4);
-          ctx.lineTo(sx, sy);
-          ctx.stroke();
-          ctx.fillStyle = `rgba(120,255,200,${alpha})`;
-          ctx.beginPath();
-          ctx.arc(sx, sy, 3, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      function frame() {
-        t++;
-        drawSky();
-        drawStars();
-        drawMoon();
-        drawDesert();
-        drawTrees();
-        drawWisps();
-        drawCeroDust();
-        requestAnimationFrame(frame);
-      }
-
-      frame();
-    })();
   </script>
 
 </body>
